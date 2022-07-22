@@ -1,36 +1,36 @@
-const User = require("../db/models/user.model");
+const Breed = require("../db/models/breed.model");
 
 const getAll = async (req, res) => {
-	const users = await User.findAll();
+	const breeds = await Breed.findAll();
 	res.json({
-		users,
+		breeds,
 	});
 };
 
 const getOne = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
+	const breed = await Breed.findByPk(Number(id));
 	res.json({
-		user,
+		breed,
 	});
 };
 
 const create = async (req, res) => {
 	const { body } = req;
-	const user = await User.create(body);
+	const breed = await Breed.create(body);
 	res.json({
-		user,
+		breed,
 	});
 };
 
 const update = async (req, res) => {
 	const { id } = req.params;
 	const { body } = req;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.update(body);
+	const breed = await Breed.findByPk(Number(id));
+	if (breed) {
+		await breed.update(body);
 		res.json({
-			user,
+			breed,
 		});
 	} else {
 		res.sendStatus(404);
@@ -39,10 +39,10 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.destroy();
-		res.send("User deleted successfully");
+	const breed = await Breed.findByPk(Number(id));
+	if (breed) {
+		await breed.destroy();
+		res.send("Breed deleted successfully");
 	} else {
 		res.sendStatus(404);
 	}

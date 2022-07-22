@@ -1,0 +1,37 @@
+Se tiene una tienda de animales, los cuales son vendidos a un precio determinado. Cada animal tiene asociada una raza. Los usuarios compran animales, y estos se convierten en sus mascotas. Los usuarios tienen foto.
+Nota: para consumir el servicio de compra el usuario debe estar logueado.
+
+Construir un sistema de backend capaz de simular el funcionamiento de dicha tienda utilizando las siguientes librerías/tecnologías:
+-jsonwebtoken para la seguridad, 
+-el ORM sequelize
+-mysql como base de datos, 
+-express js,
+
+A continuación, se definen las entidades presentes en el problema con sus campos:
+Breed: {
+    name: ""
+}
+
+Person:{
+    name: "" 
+    username: "" +
+    password: "" ** +
+    photo: img
+}
+
+Pet:{
+    name: ""
+    BreedId: Breed +
+    OwnerId: Person +
+}
+
+Shop:{
+    name: ""
+}
+
+Animal: {
+    ShopId: Shop
+    BreedId: Breed
+    price: 12.45
+    amount: 5
+}

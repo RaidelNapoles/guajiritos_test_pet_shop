@@ -2,6 +2,10 @@ const express = require("express");
 const config = require("../../config/config");
 const db = require("../db/connection");
 const userRoutes = require("../routes/user.route");
+const animalRoutes = require("../routes/animal.route");
+const breedRoutes = require("../routes/breed.route");
+const petRoutes = require("../routes/pet.route");
+const shopRoutes = require("../routes/shop.route");
 
 class Server {
 	constructor() {
@@ -14,17 +18,21 @@ class Server {
 			pets: "/api/pets",
 			shops: "/api/shops",
 		};
-		this.dbConnection();
 		this.middlewares();
 		this.routes();
 	}
 
+	async init() {
+		await this.dbConnection();
+		this.listen();
+	}
+
 	routes() {
 		this.app.use(this.apiPaths.users, userRoutes);
-		// this.app.use(this.apiPaths.animals, animalRoutes);
-		// this.app.use(this.apiPaths.breeds, breedRoutes);
-		// this.app.use(this.apiPaths.pets, petRoutes);
-		// this.app.use(this.apiPaths.shops, shopRoutes);
+		this.app.use(this.apiPaths.animals, animalRoutes);
+		this.app.use(this.apiPaths.breeds, breedRoutes);
+		this.app.use(this.apiPaths.pets, petRoutes);
+		this.app.use(this.apiPaths.shops, shopRoutes);
 	}
 
 	middlewares() {
@@ -33,8 +41,12 @@ class Server {
 	}
 
 	async dbConnection() {
-		await db.sync();
-		console.log("Successfull connection to database!!");
+		try {
+			await db.sync();
+			console.log("Successfully database connection!!");
+		} catch (error) {
+			console.log("Could not connect to database");
+		}
 	}
 
 	listen() {

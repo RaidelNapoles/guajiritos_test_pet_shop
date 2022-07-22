@@ -1,36 +1,36 @@
-const User = require("../db/models/user.model");
+const Pet = require("../db/models/pet.model");
 
 const getAll = async (req, res) => {
-	const users = await User.findAll();
+	const pets = await Pet.findAll();
 	res.json({
-		users,
+		pets,
 	});
 };
 
 const getOne = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
+	const pet = await Pet.findByPk(Number(id));
 	res.json({
-		user,
+		pet,
 	});
 };
 
 const create = async (req, res) => {
 	const { body } = req;
-	const user = await User.create(body);
+	const pet = await Pet.create(body);
 	res.json({
-		user,
+		pet,
 	});
 };
 
 const update = async (req, res) => {
 	const { id } = req.params;
 	const { body } = req;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.update(body);
+	const pet = await Pet.findByPk(Number(id));
+	if (pet) {
+		await pet.update(body);
 		res.json({
-			user,
+			pet,
 		});
 	} else {
 		res.sendStatus(404);
@@ -39,10 +39,10 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.destroy();
-		res.send("User deleted successfully");
+	const pet = await Pet.findByPk(Number(id));
+	if (pet) {
+		await pet.destroy();
+		res.send("Pet deleted successfully");
 	} else {
 		res.sendStatus(404);
 	}

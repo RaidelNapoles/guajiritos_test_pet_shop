@@ -1,36 +1,36 @@
-const User = require("../db/models/user.model");
+const Shop = require("../db/models/shop.model");
 
 const getAll = async (req, res) => {
-	const users = await User.findAll();
+	const shops = await Shop.findAll();
 	res.json({
-		users,
+		shops,
 	});
 };
 
 const getOne = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
+	const shop = await Shop.findByPk(Number(id));
 	res.json({
-		user,
+		shop,
 	});
 };
 
 const create = async (req, res) => {
 	const { body } = req;
-	const user = await User.create(body);
+	const shop = await Shop.create(body);
 	res.json({
-		user,
+		shop,
 	});
 };
 
 const update = async (req, res) => {
 	const { id } = req.params;
 	const { body } = req;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.update(body);
+	const shop = await Shop.findByPk(Number(id));
+	if (shop) {
+		await shop.update(body);
 		res.json({
-			user,
+			shop,
 		});
 	} else {
 		res.sendStatus(404);
@@ -39,10 +39,10 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
-	if (user) {
-		await user.destroy();
-		res.send("User deleted successfully");
+	const shop = await Shop.findByPk(Number(id));
+	if (shop) {
+		await shop.destroy();
+		res.send("Shop deleted successfully");
 	} else {
 		res.sendStatus(404);
 	}
