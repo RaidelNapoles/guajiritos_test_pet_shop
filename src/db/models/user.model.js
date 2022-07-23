@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../connection");
+const Pet = require("../models/pet.model");
 
 const User = db.define("User", {
 	id: {
@@ -20,5 +21,8 @@ const User = db.define("User", {
 		allowNull: false,
 	},
 });
+
+User.hasMany(Pet);
+Pet.belongsTo(User);
 
 module.exports = User;

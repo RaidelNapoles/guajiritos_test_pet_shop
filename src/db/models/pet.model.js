@@ -11,6 +11,22 @@ const Pet = db.define("Pet", {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	BreedId: {
+		type: DataTypes.INTEGER,
+		onDelete: "CASCADE",
+		references: {
+			model: "Breeds",
+			key: "id",
+		},
+	},
+	OwnerId: {
+		type: DataTypes.INTEGER,
+		onDelete: "CASCADE",
+		references: {
+			model: "Users",
+			key: "id",
+		},
+	},
 });
 
 module.exports = Pet;

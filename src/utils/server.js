@@ -42,10 +42,11 @@ class Server {
 
 	async dbConnection() {
 		try {
+			// await db.query("CREATE DATABASE `pet_shop` IF NOT EXISTS");
 			await db.sync();
 			console.log("Successfully database connection!!");
 		} catch (error) {
-			console.log("Could not connect to database");
+			console.log(error);
 		}
 	}
 

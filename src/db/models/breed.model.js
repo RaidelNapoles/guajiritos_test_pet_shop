@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 const db = require("../connection");
+const Animal = require("../models/animal.model");
+const Pet = require("../models/pet.model");
 
 const Breed = db.define("Breed", {
 	id: {
@@ -12,5 +14,10 @@ const Breed = db.define("Breed", {
 		allowNull: false,
 	},
 });
+
+Breed.hasMany(Animal);
+Animal.belongsTo(Breed);
+Breed.hasMany(Pet);
+Pet.belongsTo(Breed);
 
 module.exports = Breed;

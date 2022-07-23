@@ -15,6 +15,22 @@ const Animal = db.define("Animal", {
 		type: DataTypes.INTEGER,
 		allowNull: false,
 	},
+	BreedId: {
+		type: DataTypes.INTEGER,
+		onDelete: "CASCADE",
+		references: {
+			model: "Breeds",
+			key: "id",
+		},
+	},
+	ShopId: {
+		type: DataTypes.INTEGER,
+		onDelete: "CASCADE",
+		references: {
+			model: "Shops",
+			key: "id",
+		},
+	},
 });
 
 module.exports = Animal;
