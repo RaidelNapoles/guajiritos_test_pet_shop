@@ -1,7 +1,8 @@
+const Animal = require("../db/models/animal.model");
 const Shop = require("../db/models/shop.model");
 
 const getAll = async (req, res) => {
-	const shops = await Shop.findAll();
+	const shops = await Shop.findAll({ include: Animal });
 	res.json({
 		shops,
 	});
@@ -9,7 +10,7 @@ const getAll = async (req, res) => {
 
 const getOne = async (req, res) => {
 	const { id } = req.params;
-	const shop = await Shop.findByPk(Number(id));
+	const shop = await Shop.findByPk(Number(id), { include: Animal });
 	res.json({
 		shop,
 	});

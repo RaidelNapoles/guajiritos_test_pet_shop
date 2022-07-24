@@ -1,7 +1,9 @@
+const Breed = require("../db/models/breed.model");
+const Pet = require("../db/models/pet.model");
 const User = require("../db/models/user.model");
 
 const getAll = async (req, res) => {
-	const users = await User.findAll();
+	const users = await User.findAll({ include: { model: Pet, as: "pets" } });
 	res.json({
 		users,
 	});
@@ -9,7 +11,9 @@ const getAll = async (req, res) => {
 
 const getOne = async (req, res) => {
 	const { id } = req.params;
-	const user = await User.findByPk(Number(id));
+	const user = await User.findByPk(Number(id), {
+		include: { model: Pet, as: "pets" },
+	});
 	res.json({
 		user,
 	});
@@ -48,10 +52,24 @@ const remove = async (req, res) => {
 	}
 };
 
+const buyPet = async (req, res) => {
+	const { id } = req.params;
+	const { name, BreedId } = req.body;
+
+	const breed = await Breed.findByPk(BreedId);
+	if (!breed) return res.status(400).send(`Not found breed with id ${BreedId}`);
+
+	const pet = await Pet.create({ name, BreedId, OwnerId: id });
+	res.json({
+		pet,
+	});
+};
+
 module.exports = {
 	getAll,
 	getOne,
 	create,
 	update,
 	remove,
+	buyPet,
 };

@@ -9,29 +9,29 @@ Construir un sistema de backend capaz de simular el funcionamiento de dicha tien
 
 A continuación, se definen las entidades presentes en el problema con sus campos:
 Breed: {
-    name: ""
+    "name": ""
 }
 
 Person:{
-    name: "" 
-    username: "" +
-    password: "" ** +
-    photo: img
+    "name": "" 
+    "username": "" +
+    "password": "" ** +
+    "photo": img
 }
 
-Pet:{
-    name: ""
-    BreedId: Breed +
-    OwnerId: Person +
+Pet: {
+    "name": ""
+    "BreedId": Breed +
+    "OwnerId": Person +
 }
 
-Shop:{
-    name: ""
+Shop: {
+    "name": ""
 }
 
 Animal: {
-    ShopId: Shop
-    BreedId: Breed
-    price: 12.45
-    amount: 5
+    "ShopId": Shop,
+    "BreedId": Breed,
+    "price": 12.45,
+    "amount": 5
 }
