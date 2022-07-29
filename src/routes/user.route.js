@@ -5,16 +5,19 @@ const {
 	getAll,
 	update,
 	buyPet,
+	login,
 } = require("../controllers/user.controller");
 const { Router } = require("express");
+const { validateToken } = require("../utils/auth");
 
 const router = Router();
 
 router.get("/", getAll);
 router.get("/:id", getOne);
-router.post("/", create);
+router.post("/register", create);
 router.put("/:id", update);
 router.delete("/:id", remove);
-router.post("/:id/buyPet", buyPet);
+router.post("/:id/buyPet", validateToken, buyPet);
+router.post("/login", login);
 
 module.exports = router;

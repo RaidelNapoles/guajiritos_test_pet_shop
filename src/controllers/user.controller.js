@@ -1,10 +1,12 @@
 const Breed = require("../db/models/breed.model");
 const Pet = require("../db/models/pet.model");
 const User = require("../db/models/user.model");
+const { generateAccessToken } = require("../utils/auth");
 
 const getAll = async (req, res) => {
 	const users = await User.findAll({ include: { model: Pet, as: "pets" } });
 	res.json({
+		count: users.length,
 		users,
 	});
 };
@@ -65,6 +67,26 @@ const buyPet = async (req, res) => {
 	});
 };
 
+const login = async (req, res) => {
+	const { username, password } = req.body;
+	const user = await User.findOne({
+		where: {
+			username,
+			password,
+		},
+	});
+	if (!user) {
+		return res.status(401).send(`Invalid credentials`);
+	}
+
+	const accessToken = generateAccessToken({ username });
+
+	res.header("authorization", accessToken).json({
+		msg: `Welcome, ${username}`,
+		token: accessToken,
+	});
+};
+
 module.exports = {
 	getAll,
 	getOne,
@@ -72,4 +94,5 @@ module.exports = {
 	update,
 	remove,
 	buyPet,
+	login,
 };

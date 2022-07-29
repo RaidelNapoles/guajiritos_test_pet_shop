@@ -1,0 +1,5 @@
+1- realizar la seguridad
+2- gestionar el campo foto del usuario
+3- restringir el acceso de los usuarios a la compra de mascotas
+4- agregar la documentación con swagger
+5- garantizar que el username sea único para cada usuario

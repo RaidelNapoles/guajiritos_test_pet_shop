@@ -1,11 +1,13 @@
 const express = require("express");
 const config = require("../../config/config");
+const swaggerUI = require("swagger-ui-express");
 const db = require("../db/connection");
 const userRoutes = require("../routes/user.route");
 const animalRoutes = require("../routes/animal.route");
 const breedRoutes = require("../routes/breed.route");
 const petRoutes = require("../routes/pet.route");
 const shopRoutes = require("../routes/shop.route");
+const swaggerSpec = require("../doc/doc");
 
 class Server {
 	constructor() {
@@ -28,6 +30,7 @@ class Server {
 	}
 
 	routes() {
+		this.app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 		this.app.use(this.apiPaths.users, userRoutes);
 		this.app.use(this.apiPaths.animals, animalRoutes);
 		this.app.use(this.apiPaths.breeds, breedRoutes);
